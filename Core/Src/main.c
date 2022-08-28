@@ -255,7 +255,7 @@ int main(void)
       case 'Y': send_char_HID(Y_USB_CHAR, LEFT_SHIFT); break;
       case 'Z': send_char_HID(Z_USB_CHAR, LEFT_SHIFT); break;
       case '*': test_routine_one(); break;
-      case '#': send_char_HID(X_USB_CHAR, LEFT_SHIFT); break;
+      case '#': test_routine_two(); break;
       // case '*': send_char_HID(NUM_8_USB_CHAR, LEFT_SHIFT); break;
       // case '#': send_char_HID(NUM_3_USB_CHAR, LEFT_SHIFT); break;
       
@@ -504,7 +504,17 @@ void test_routine_one(void){
 }
 
 void test_routine_two(void){
-
+	casai_keyboard.MODIFIER = RELEASE_USB_CHAR;
+	casai_keyboard.KEYCODE1 = C_USB_CHAR;
+	casai_keyboard.KEYCODE2 = A_USB_CHAR;
+	casai_keyboard.KEYCODE3 = S_USB_CHAR;
+	casai_keyboard.KEYCODE4 = A_USB_CHAR;
+	casai_keyboard.KEYCODE5 = I_USB_CHAR;
+	casai_keyboard.KEYCODE6 = RELEASE_USB_CHAR;
+	USBD_HID_SendReport(&hUsbDeviceFS, &casai_keyboard, sizeof(casai_keyboard));
+	HAL_Delay(100);
+	release_key_HID();
+	HAL_Delay(20);
 }
 /* USER CODE END 4 */
 
